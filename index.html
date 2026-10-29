@@ -1,143 +1,211 @@
-<body>
-  <h2>Program Hitung Umur</h2>
-  <label for="tahun">Masukkan Tahun Lahir:</label>
-  <input type="number" id="tahun" placeholder="contoh: 2000">
-  <button onclick="hitungUmur ()">Hitung</button>
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Program Kalkulator</title>
+  </head>
+  <body>
+    <div class="page-shell">
+      <main class="app-grid">
+        <section class="card">
+          <h2>Program Hitung Umur</h2>
+          <label for="tahun">Masukkan Tahun Lahir:</label>
+          <input type="number" id="tahun" placeholder="contoh: 2000" />
+          <button onclick="hitungUmur()">Hitung</button>
+          <p id="hasil" class="result"></p>
+        </section>
 
-  <p id="hasil"></p>
+        <section class="card">
+          <h2>Penentu Nilai Huruf</h2>
+          <label for="nilai">Masukkan Nilai (0-100):</label>
+          <input type="number" id="nilai" placeholder="contoh: 85" />
+          <button onclick="tentukanNilaiHuruf()">Tentukan</button>
+          <p id="hasilNilai" class="result"></p>
+        </section>
 
-  <script>
-    function hitungUmur() {
+        <section class="card">
+          <h2>Program Tahun Kabisat</h2>
+          <label for="tahunKabisat">Masukkan Tahun:</label>
+          <input type="number" id="tahunKabisat" placeholder="contoh: 2024" />
+          <button onclick="cekTahunKabisat()">Cek</button>
+          <p id="hasilKabisat" class="result"></p>
+        </section>
+
+        <section class="card">
+          <h2>Tabel Perkalian</h2>
+          <label for="angka">Masukkan Angka:</label>
+          <input type="number" id="angka" placeholder="contoh: 7" />
+          <label for="batasKelipatan">Sampai kelipatan ke-:</label>
+          <input type="number" id="batasKelipatan" min="1" step="1" value="10" />
+          <button onclick="tampilkanTabelPerkalian()">Tampilkan</button>
+          <p id="hasilPerkalian" class="result"></p>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      function hitungUmur() {
         let hasilElement = document.getElementById("hasil");
         let tahunLahir = document.getElementById("tahun").value;
         let tahunSekarang = new Date().getFullYear();
 
         if (tahunLahir === "") {
-            hasilElement.innerHTML = "Tolong masukkan tahun lahir Anda.";
-            hasilElement.className = "error";
-            return;
+          hasilElement.innerHTML = "Tolong masukkan tahun lahir Anda.";
+          hasilElement.className = "result error";
+          alert("Tolong masukkan tahun lahir Anda.");
+          return;
         }
 
         let tahunLahirInt = parseInt(tahunLahir);
 
         if (tahunLahirInt > tahunSekarang) {
-            alert("Jangan kegedean mas kalo tahun lahir lebih gede dari tahun sekarang");
-            hasilElement.innerHTML = "Jangan kegedean mas kalo tahun lahir lebih gede dari tahun sekarang";
-            hasilElement.className = "error";
-            return;
+          alert("Jangan kegedean mas kalo tahun lahir lebih gede dari tahun sekarang");
+          hasilElement.innerHTML = "Jangan kegedean mas kalo tahun lahir lebih gede dari tahun sekarang";
+          hasilElement.className = "result error";
+          return;
         }
 
         let umur = tahunSekarang - tahunLahirInt;
         hasilElement.innerHTML = "Umur kamu sekarang adalah " + umur + " tahun.";
+        hasilElement.className = "result success";
       }
-  </script>
-  <h2>Penentu Nilai Huruf</h2>
-  <br>
-  <label for="nilai">Masukkan Nilai  (0-100):</label>
-  <input type="number" id="nilai" placeholder="contoh: 85">
-  <button onclick="tentukanNilaiHuruf()">Tentukan</button>
 
-  <p id="hasilNilai"></p>
-
-  <script>
-    function tentukanNilaiHuruf() {
+      function tentukanNilaiHuruf() {
         let hasilNilaiElement = document.getElementById("hasilNilai");
         let nilai = document.getElementById("nilai").value;
 
         if (nilai === "") {
-            hasilNilaiElement.innerHTML = "Tolong masukkan nilai Anda.";
-            hasilNilaiElement.className = "error";
-            return;
+          hasilNilaiElement.innerHTML = "Tolong masukkan nilai Anda.";
+          hasilNilaiElement.className = "result error";
+          alert("Tolong masukkan nilai Anda.");
+          return;
         }
 
         let nilaiInt = parseInt(nilai);
 
         if (nilaiInt < 0 || nilaiInt > 100) {
-            alert("Masukkan nilai antara 0 hingga 100.");
-            hasilNilaiElement.innerHTML = "Masukkan nilai antara 0 hingga 100.";
-            hasilNilaiElement.className = "error";
-            return;
+          alert("Masukkan nilai antara 0 hingga 100.");
+          hasilNilaiElement.innerHTML = "Masukkan nilai antara 0 hingga 100.";
+          hasilNilaiElement.className = "result error";
+          return;
         }
 
         let huruf;
 
         if (nilaiInt >= 90) {
-            huruf = "A";
+          huruf = "A";
         } else if (nilaiInt >= 80) {
-            huruf = "B";
+          huruf = "B";
         } else if (nilaiInt >= 70) {
-            huruf = "C";
+          huruf = "C";
         } else if (nilaiInt >= 60) {
-            huruf = "D";
+          huruf = "D";
         } else {
-            huruf = "E";
+          huruf = "E";
         }
 
         let keterangan;
 
         switch (huruf) {
-            case "A":
-                keterangan = "Boleh Banget";
-                break;
-            case "B":
-                keterangan = "Lumayan";
-                break;
-            case "C":
-                keterangan = "Cukup";
-                break;
-            case "D":
-                keterangan = "Perlu Belajar Lagi";
-                break;
-            default:
-                keterangan = "Ngawur";
+          case "A":
+            keterangan = "Boleh Banget";
+            break;
+          case "B":
+            keterangan = "Lumayan";
+            break;
+          case "C":
+            keterangan = "Cukup";
+            break;
+          case "D":
+            keterangan = "Perlu Belajar Lagi";
+            break;
+          default:
+            keterangan = "Ngawur";
         }
 
         let pesan = "Nilai huruf Anda adalah " + huruf + " - " + keterangan;
         hasilNilaiElement.innerHTML = pesan;
+        hasilNilaiElement.className = "result success";
         alert(pesan);
-    }
-  </script>
+      }
 
-   <h2>Program Tahun Kabisat</h2>
-   <br>
-   <label for="tahunKabisat">Masukkan Tahun:</label>
-   <input type="number" id="tahunKabisat" placeholder="contoh: 2024">
-   <button onclick="cekTahunKabisat()">Cek</button>
-
-   <p id="hasilKabisat"></p>
-
-    <script>
       function cekTahunKabisat() {
-            let hasilKabisatElement = document.getElementById("hasilKabisat");
-            let tahun = document.getElementById("tahunKabisat").value;
-    
-            if (tahun === "") {
-                 hasilKabisatElement.innerHTML = "Tolong masukkan tahun.";
-                 hasilKabisatElement.className = "error";
-                 alert("Tolong masukkan tahun.");
-                 return;
-            }
-    
-            let tahunInt = parseInt(tahun);
-    
-            if ((tahunInt % 4 === 0 && tahunInt % 100 !== 0) || (tahunInt % 400 === 0)) {
-                 hasilKabisatElement.innerHTML = tahunInt + " adalah tahun kabisat.";
-            } else {
-                 hasilKabisatElement.innerHTML = tahunInt + " bukan tahun kabisat.";
-            }
+        let hasilKabisatElement = document.getElementById("hasilKabisat");
+        let tahun = document.getElementById("tahunKabisat").value;
 
-            let tahunSekarang = new Date().getFullYear();
-            let infoUmur = tahunInt <= tahunSekarang
-                ? "\nPerkiraan umur berdasarkan tahun tersebut: " + (tahunSekarang - tahunInt) + " tahun."
-                : "\nUmur belum dapat dihitung karena tahun tersebut berada di masa depan.";
+        if (tahun === "") {
+          hasilKabisatElement.innerHTML = "Tolong masukkan tahun.";
+          hasilKabisatElement.className = "result error";
+          alert("Tolong masukkan tahun.");
+          return;
+        }
 
-            alert(
-                hasilKabisatElement.innerHTML +
-                infoUmur +
-                "\n\nOperator logika yang digunakan:" +
-                "\n&& berarti kedua syarat harus benar." +
-                "\n|| berarti salah satu syarat harus benar."
-            );
+        let tahunInt = parseInt(tahun);
+
+        if ((tahunInt % 4 === 0 && tahunInt % 100 !== 0) || (tahunInt % 400 === 0)) {
+          hasilKabisatElement.innerHTML = tahunInt + " adalah tahun kabisat.";
+        } else {
+          hasilKabisatElement.innerHTML = tahunInt + " bukan tahun kabisat.";
+        }
+
+        hasilKabisatElement.className = "result success";
+
+        let tahunSekarang = new Date().getFullYear();
+        let infoUmur = tahunInt <= tahunSekarang
+          ? "\nPerkiraan umur berdasarkan tahun tersebut: " + (tahunSekarang - tahunInt) + " tahun."
+          : "\nUmur belum dapat dihitung karena tahun tersebut berada di masa depan.";
+
+        alert(
+          hasilKabisatElement.innerHTML +
+            infoUmur +
+            "\n\nOperator logika yang digunakan:" +
+            "\n&& berarti kedua syarat harus benar." +
+            "\n|| berarti salah satu syarat harus benar."
+        );
+      }
+
+      function tampilkanTabelPerkalian() {
+        let angka = document.getElementById("angka").value;
+        let batasKelipatan = document.getElementById("batasKelipatan").value;
+        let hasilPerkalianElement = document.getElementById("hasilPerkalian");
+
+        if (angka === "") {
+          hasilPerkalianElement.innerHTML = "Tolong masukkan angka.";
+          hasilPerkalianElement.className = "result error";
+          alert("Tolong masukkan angka");
+          return;
+        }
+
+        if (batasKelipatan === "") {
+          hasilPerkalianElement.innerHTML = "Tolong masukkan batas kelipatan.";
+          hasilPerkalianElement.className = "result error";
+          return;
+        }
+
+        let angkaInt = parseInt(angka);
+        let batasKelipatanInt = Number(batasKelipatan);
+
+        if (isNaN(angkaInt)) {
+          hasilPerkalianElement.innerHTML = "Masukkan angka yang valid.";
+          hasilPerkalianElement.className = "result error";
+          return;
+        }
+
+        if (!Number.isInteger(batasKelipatanInt) || batasKelipatanInt < 1) {
+          hasilPerkalianElement.innerHTML = "Batas kelipatan harus berupa bilangan bulat minimal 1.";
+          hasilPerkalianElement.className = "result error";
+          return;
+        }
+
+        let tabel = "<h3>Tabel Perkalian " + angkaInt + "</h3><table border='1'>";
+        for (let i = 1; i <= batasKelipatanInt; i++) {
+          tabel += "<tr><td>" + angkaInt + " × " + i + "</td><td>" + (angkaInt * i) + "</td></tr>";
+        }
+        tabel += "</table>";
+        hasilPerkalianElement.innerHTML = tabel;
+        hasilPerkalianElement.className = "result success";
       }
     </script>
-</body>
+  </body>
+</html>
